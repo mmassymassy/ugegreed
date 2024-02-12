@@ -1,0 +1,109 @@
+Connexion au parent reussie!
+info: doConnect
+info: sending join request
+writing BufferOut to client socket
+reading ...
+-- MESSAGE IN --
+info: type de message: PEER_LIST
+info: Processing du message PEER_LIST
+-- ROUTER TABLE ADD --
+info: ajouter un entrer dans la table de routage pour le noeud avec le ID 127.0.0.1:4567
+---- ROUTING TABLE ----
+| AppId           | isParent        | isClient        | nextAppId       |
+| 127.0.0.1:4567  | true            | false           | 127.0.0.1:4567  |
+---- ROUTING TABLE ----
+-- ROUTER TABLE ADD DONE --
+-- MESSAGE IN DONE --
+info: nouveau client connecté
+reading ...
+-- MESSAGE IN --
+info: type de message: JOIN_REQUEST
+info: Processing du message JOING_REQUEST
+-- ROUTER TABLE ADD --
+info: ajouter un entrer dans la table de routage pour le noeud avec le ID 127.0.0.1:5555
+---- ROUTING TABLE ----
+| AppId           | isParent        | isClient        | nextAppId       |
+| 127.0.0.1:5555  | false           | true            | 127.0.0.1:5555  |
+| 127.0.0.1:4567  | true            | false           | 127.0.0.1:4567  |
+---- ROUTING TABLE ----
+-- ROUTER TABLE ADD DONE --
+info: envoie du message PEER_LIST
+info: envoie du message JOIN_REQUEST_BROADCAST
+-- MESSAGE IN DONE --
+writing BufferOut to client socket
+info: nouveau client connecté
+reading ...
+-- MESSAGE IN --
+info: type de message: JOIN_REQUEST
+info: Processing du message JOING_REQUEST
+-- ROUTER TABLE ADD --
+info: ajouter un entrer dans la table de routage pour le noeud avec le ID 127.0.0.1:6666
+---- ROUTING TABLE ----
+| AppId           | isParent        | isClient        | nextAppId       |
+| 127.0.0.1:5555  | false           | true            | 127.0.0.1:5555  |
+| 127.0.0.1:6666  | false           | true            | 127.0.0.1:6666  |
+| 127.0.0.1:4567  | true            | false           | 127.0.0.1:4567  |
+---- ROUTING TABLE ----
+-- ROUTER TABLE ADD DONE --
+info: envoie du message PEER_LIST
+info: envoie du message JOIN_REQUEST_BROADCAST
+-- MESSAGE IN DONE --
+writing BufferOut to client socket
+DISCONNECT
+info: envoie du message LEAVE_REQUEST
+writing BufferOut to client socket
+reading ...
+-- MESSAGE IN --
+info: type de message: LEAVE_GRANTED
+info: Processing du message LEAVE_GRANTED
+info: le parent a accepte la demande de deconnection
+info: 2 clients ont ete onvoyer un message de please_reconnect
+-- MESSAGE IN DONE --
+reading ...
+-- MESSAGE IN --
+info: type de message: RECONNECTION_REQUEST
+info: Processing du message RECONNECTION_REQUEST
+-- MESSAGE IN DONE --
+writing BufferOut to client socket
+reading ...
+-- MESSAGE IN --
+info: type de message: RECONNECTION_REQUEST
+info: Processing du message RECONNECTION_REQUEST
+-- MESSAGE IN DONE --
+reading ...
+-- MESSAGE IN --
+info: type de message: RECONECTION_ACCEPTED
+info: Processing du message RECONNECTION_ACCEPTED
+org.uge.greed.messaging.messages.UGEgreedReconnectionAccepted@5ce65a89
+-- MESSAGE IN DONE --
+writing BufferOut to client socket
+reading ...
+-- MESSAGE IN --
+info: type de message: RECONECTION_ACCEPTED
+info: Processing du message RECONNECTION_ACCEPTED
+org.uge.greed.messaging.messages.UGEgreedReconnectionAccepted@25f38edc
+-- MESSAGE IN DONE --
+reading ...
+-- MESSAGE IN --
+info: type de message: RECONECTED
+info: Processing du message RECONNECTED OK
+info: le parent a accepte la demande de reconnection d'un fils
+info: attend de recevoir tous les messages de reconnection des fils. Il reste 1 fils
+-- MESSAGE IN DONE --
+reading ...
+-- MESSAGE IN --
+info: type de message: RECONECTED
+info: Processing du message RECONNECTED OK
+info: le parent a accepte la demande de reconnection d'un fils
+info: tous les fils ont reussi a se reconnecter
+info: Le programme va quitter dans 10 secondes
+-- MESSAGE IN DONE --
+writing BufferOut to client socket
+reading ...
+Err: interestOps == 0
+Err: la cle n'est pas valide!
+reading ...
+Err: interestOps == 0
+reading ...
+Err: interestOps == 0
+info: Le programme va quitter maintenant

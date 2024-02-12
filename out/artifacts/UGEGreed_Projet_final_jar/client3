@@ -1,0 +1,299 @@
+Connexion au parent reussie!
+info: doConnect
+info: sending join request
+writing BufferOut to client socket
+reading ...
+-- MESSAGE IN --
+info: type de message: PEER_LIST
+info: Processing du message PEER_LIST
+-- ROUTER TABLE ADD --
+info: ajouter un entrer dans la table de routage pour le noeud avec le ID 127.0.0.1:4444
+---- ROUTING TABLE ----
+| AppId           | isParent        | isClient        | nextAppId       |
+| 127.0.0.1:4444  | true            | false           | 127.0.0.1:4444  |
+---- ROUTING TABLE ----
+-- ROUTER TABLE ADD DONE --
+-- ROUTER TABLE ADD --
+info: ajouter un entrer dans la table de routage pour le noeud avec le ID 127.0.0.1:4567
+---- ROUTING TABLE ----
+| AppId           | isParent        | isClient        | nextAppId       |
+| 127.0.0.1:4444  | true            | false           | 127.0.0.1:4444  |
+| 127.0.0.1:4567  | true            | false           | 127.0.0.1:4444  |
+---- ROUTING TABLE ----
+-- ROUTER TABLE ADD DONE --
+-- MESSAGE IN DONE --
+reading ...
+-- MESSAGE IN --
+info: type de message: JOIN_REQUEST_BROADCAST
+info: Processing du message JOIN_REQUEST_BROADCAST
+-- ROUTER TABLE ADD --
+info: ajouter un entrer dans la table de routage pour le noeud avec le ID 127.0.0.1:6666
+---- ROUTING TABLE ----
+| AppId           | isParent        | isClient        | nextAppId       |
+| 127.0.0.1:6666  | true            | false           | 127.0.0.1:4444  |
+| 127.0.0.1:4444  | true            | false           | 127.0.0.1:4444  |
+| 127.0.0.1:4567  | true            | false           | 127.0.0.1:4444  |
+---- ROUTING TABLE ----
+-- ROUTER TABLE ADD DONE --
+info: Envoie du message JOIN_REQUEST_BROADCAST
+-- MESSAGE IN DONE --
+reading ...
+-- MESSAGE IN --
+info: type de message: PLEASE_RECONNECT
+info: le parent a demande de se reconnecter a 127.0.0.1:4567
+-- MESSAGE IN DONE --
+writing BufferOut to client socket
+reading ...
+-- MESSAGE IN --
+info: type de message: RECONECTION_ACCEPTED
+info: Processing du message RECONNECTION_ACCEPTED
+info: le parent a accepte la demande de reconnection 
+-- MESSAGE IN DONE --
+writing BufferOut to client socket
+reading ...
+-- MESSAGE IN --
+info: type de message: LEAVING_BROADCAST
+info: Processing du message LEAVE_BROADCAST
+info: mise a jour de la table de routage pour les ligne qui on la NextHop =127.0.0.1:4444 avec la nouvelle NextHop = 127.0.0.1:4567
+---- ROUTING TABLE ----
+| AppId           | isParent        | isClient        | nextAppId       |
+| 127.0.0.1:6666  | true            | false           | 127.0.0.1:4567  |
+| 127.0.0.1:4444  | true            | false           | 127.0.0.1:4567  |
+| 127.0.0.1:4567  | true            | false           | 127.0.0.1:4567  |
+---- ROUTING TABLE ----
+info: Supression de l'entrée u routage pour le noeud avec le ID 127.0.0.1:4444
+---- ROUTING TABLE ----
+| AppId           | isParent        | isClient        | nextAppId       |
+| 127.0.0.1:6666  | true            | false           | 127.0.0.1:4567  |
+| 127.0.0.1:4567  | true            | false           | 127.0.0.1:4567  |
+---- ROUTING TABLE ----
+info: Envoie du messageLEAVING_BROADCAST
+-- MESSAGE IN DONE --
+Connexion au parent reussie!
+info: doConnect
+info: sending join request
+writing BufferOut to client socket
+START http://www-igm.univ-mlv.fr/~carayol/Factorize.jar fr.uge.factors.Factorizer 1 100 Factorize.txt
+-- STARTING COMMAND --
+-- WORKLOAD DISTRIBUTION --
+info: Distribution des taches entre 2 noeuds avec 49 calcule pour chaque un.
+-- WORKLOAD DISTRIBUTION DONE --
+-- STARTING COMMAND DONE --
+info: Envoie du message WORKLOAD_REQUEST vers: 127.0.0.1:4567
+info: Envoie du message WORKLOAD_REQUEST vers: 127.0.0.1:6666
+writing BufferOut to client socket
+reading ...
+-- MESSAGE IN --
+info: type de message: WORKLOAD_ACK
+info: Processing du message WORKLOAD_ACK
+-- MESSAGE IN DONE --
+reading ...
+-- MESSAGE IN --
+info: type de message: WORKLOAD_ACK
+info: Processing du message WORKLOAD_ACK
+-- MESSAGE IN DONE --
+reading ...
+-- MESSAGE IN --
+info: type de message: WORKLOAD_RESULT
+info: Processing du message WORKLOAD_RESULT
+-- MESSAGE IN DONE --
+-- MESSAGE IN --
+info: type de message: WORKLOAD_RESULT
+info: Processing du message WORKLOAD_RESULT
+-- MESSAGE IN DONE --
+-- MESSAGE IN --
+info: type de message: WORKLOAD_RESULT
+info: Processing du message WORKLOAD_RESULT
+-- MESSAGE IN DONE --
+-- MESSAGE IN --
+info: type de message: WORKLOAD_RESULT
+info: Processing du message WORKLOAD_RESULT
+-- MESSAGE IN DONE --
+-- MESSAGE IN --
+info: type de message: WORKLOAD_RESULT
+info: Processing du message WORKLOAD_RESULT
+-- MESSAGE IN DONE --
+-- MESSAGE IN --
+info: type de message: WORKLOAD_RESULT
+info: Processing du message WORKLOAD_RESULT
+-- MESSAGE IN DONE --
+-- MESSAGE IN --
+info: type de message: WORKLOAD_RESULT
+info: Processing du message WORKLOAD_RESULT
+-- MESSAGE IN DONE --
+-- MESSAGE IN --
+info: type de message: WORKLOAD_RESULT
+info: Processing du message WORKLOAD_RESULT
+-- MESSAGE IN DONE --
+-- MESSAGE IN --
+info: type de message: WORKLOAD_RESULT
+info: Processing du message WORKLOAD_RESULT
+-- MESSAGE IN DONE --
+-- MESSAGE IN --
+info: type de message: WORKLOAD_RESULT
+info: Processing du message WORKLOAD_RESULT
+-- MESSAGE IN DONE --
+-- MESSAGE IN --
+info: type de message: WORKLOAD_RESULT
+info: Processing du message WORKLOAD_RESULT
+-- MESSAGE IN DONE --
+-- MESSAGE IN --
+info: type de message: WORKLOAD_RESULT
+info: Processing du message WORKLOAD_RESULT
+-- MESSAGE IN DONE --
+-- MESSAGE IN --
+info: type de message: WORKLOAD_RESULT
+info: Processing du message WORKLOAD_RESULT
+-- MESSAGE IN DONE --
+-- MESSAGE IN --
+info: type de message: WORKLOAD_RESULT
+info: Processing du message WORKLOAD_RESULT
+-- MESSAGE IN DONE --
+-- MESSAGE IN --
+info: type de message: WORKLOAD_RESULT
+info: Processing du message WORKLOAD_RESULT
+-- MESSAGE IN DONE --
+-- MESSAGE IN --
+info: type de message: WORKLOAD_RESULT
+info: Processing du message WORKLOAD_RESULT
+-- MESSAGE IN DONE --
+-- MESSAGE IN --
+info: type de message: WORKLOAD_RESULT
+info: Processing du message WORKLOAD_RESULT
+-- MESSAGE IN DONE --
+-- MESSAGE IN --
+info: type de message: WORKLOAD_RESULT
+info: Processing du message WORKLOAD_RESULT
+-- MESSAGE IN DONE --
+-- MESSAGE IN --
+info: type de message: WORKLOAD_RESULT
+info: Processing du message WORKLOAD_RESULT
+-- MESSAGE IN DONE --
+-- MESSAGE IN --
+info: type de message: WORKLOAD_RESULT
+info: Processing du message WORKLOAD_RESULT
+-- MESSAGE IN DONE --
+-- MESSAGE IN --
+info: type de message: WORKLOAD_RESULT
+info: Processing du message WORKLOAD_RESULT
+-- MESSAGE IN DONE --
+-- MESSAGE IN --
+info: type de message: WORKLOAD_RESULT
+info: Processing du message WORKLOAD_RESULT
+-- MESSAGE IN DONE --
+-- MESSAGE IN --
+info: type de message: WORKLOAD_RESULT
+info: Processing du message WORKLOAD_RESULT
+-- MESSAGE IN DONE --
+-- MESSAGE IN --
+info: type de message: WORKLOAD_RESULT
+info: Processing du message WORKLOAD_RESULT
+-- MESSAGE IN DONE --
+-- MESSAGE IN --
+info: type de message: WORKLOAD_RESULT
+info: Processing du message WORKLOAD_RESULT
+-- MESSAGE IN DONE --
+-- MESSAGE IN --
+info: type de message: WORKLOAD_RESULT
+info: Processing du message WORKLOAD_RESULT
+-- MESSAGE IN DONE --
+-- MESSAGE IN --
+info: type de message: WORKLOAD_RESULT
+info: Processing du message WORKLOAD_RESULT
+-- MESSAGE IN DONE --
+-- MESSAGE IN --
+info: type de message: WORKLOAD_RESULT
+info: Processing du message WORKLOAD_RESULT
+-- MESSAGE IN DONE --
+-- MESSAGE IN --
+info: type de message: WORKLOAD_RESULT
+info: Processing du message WORKLOAD_RESULT
+-- MESSAGE IN DONE --
+-- MESSAGE IN --
+info: type de message: WORKLOAD_RESULT
+info: Processing du message WORKLOAD_RESULT
+-- MESSAGE IN DONE --
+-- MESSAGE IN --
+info: type de message: WORKLOAD_RESULT
+info: Processing du message WORKLOAD_RESULT
+-- MESSAGE IN DONE --
+-- MESSAGE IN --
+info: type de message: WORKLOAD_RESULT
+info: Processing du message WORKLOAD_RESULT
+-- MESSAGE IN DONE --
+-- MESSAGE IN --
+info: type de message: WORKLOAD_RESULT
+info: Processing du message WORKLOAD_RESULT
+-- MESSAGE IN DONE --
+-- MESSAGE IN --
+info: type de message: WORKLOAD_RESULT
+info: Processing du message WORKLOAD_RESULT
+-- MESSAGE IN DONE --
+-- MESSAGE IN --
+info: type de message: WORKLOAD_RESULT
+info: Processing du message WORKLOAD_RESULT
+-- MESSAGE IN DONE --
+-- MESSAGE IN --
+info: type de message: WORKLOAD_RESULT
+info: Processing du message WORKLOAD_RESULT
+-- MESSAGE IN DONE --
+-- MESSAGE IN --
+info: type de message: WORKLOAD_RESULT
+info: Processing du message WORKLOAD_RESULT
+-- MESSAGE IN DONE --
+-- MESSAGE IN --
+info: type de message: WORKLOAD_RESULT
+info: Processing du message WORKLOAD_RESULT
+-- MESSAGE IN DONE --
+-- MESSAGE IN --
+info: type de message: WORKLOAD_RESULT
+info: Processing du message WORKLOAD_RESULT
+-- MESSAGE IN DONE --
+-- MESSAGE IN --
+info: type de message: WORKLOAD_RESULT
+info: Processing du message WORKLOAD_RESULT
+-- MESSAGE IN DONE --
+-- MESSAGE IN --
+info: type de message: WORKLOAD_RESULT
+info: Processing du message WORKLOAD_RESULT
+-- MESSAGE IN DONE --
+-- MESSAGE IN --
+info: type de message: WORKLOAD_RESULT
+info: Processing du message WORKLOAD_RESULT
+-- MESSAGE IN DONE --
+-- MESSAGE IN --
+info: type de message: WORKLOAD_RESULT
+info: Processing du message WORKLOAD_RESULT
+-- MESSAGE IN DONE --
+-- MESSAGE IN --
+info: type de message: WORKLOAD_RESULT
+info: Processing du message WORKLOAD_RESULT
+-- MESSAGE IN DONE --
+-- MESSAGE IN --
+info: type de message: WORKLOAD_RESULT
+info: Processing du message WORKLOAD_RESULT
+-- MESSAGE IN DONE --
+-- MESSAGE IN --
+info: type de message: WORKLOAD_RESULT
+info: Processing du message WORKLOAD_RESULT
+-- MESSAGE IN DONE --
+-- MESSAGE IN --
+info: type de message: WORKLOAD_RESULT
+info: Processing du message WORKLOAD_RESULT
+-- MESSAGE IN DONE --
+-- MESSAGE IN --
+info: type de message: WORKLOAD_RESULT
+info: Processing du message WORKLOAD_RESULT
+-- MESSAGE IN DONE --
+-- MESSAGE IN --
+info: type de message: WORKLOAD_RESULT
+info: Processing du message WORKLOAD_RESULT
+-- MESSAGE IN DONE --
+-- MESSAGE IN --
+info: type de message: WORKLOAD_RESULT
+info: Processing du message WORKLOAD_RESULT
+-- MESSAGE IN DONE --
+-- MESSAGE IN --
+info: type de message: WORKLOAD_RESULT
+info: Processing du message WORKLOAD_RESULT
+-- MESSAGE IN DONE --

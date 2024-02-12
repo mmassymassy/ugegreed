@@ -1,0 +1,971 @@
+
+
+Université Gustav Eiffel
+Request for Comments: 0001                         Binome: Seddar Samira
+Date: 2023-03-02                                   & Benaibouche Lyna
+
+
+
+
+
+
+                              UGEGreed
+
+Abstract
+
+   Ce document présente un nouveau système informatique distribué basé
+   sur le protocole TCP : UGEGreed  qui permet aux chercheurs de tester
+   des conjectures sur un grand nombre d'entrées en répartissant les
+   calculs sur plusieurs machines et en récupérant les sorties pour les
+   combiner en un résultat global.
+
+   Le système consiste en un réseau
+   d'applications qui communiquent entre elles à l'aide d'un protocole
+   personnalisé. Les applications peuvent rejoindre et quitter le
+   réseau de manière dynamique, et les charges de travail peuvent être
+   réparties entre les applications disponibles pour un traitement
+   parallèle. Le protocole prend en charge plusieurs types de messages
+   : JOIN, WORKLOAD et LEAVE, qui sont utilisés pour gérer les
+   connexions d'applications, la distribution de la charge de travail,
+   la collecte des résultats et la déconnexion des applications.
+
+   Le système est conçu pour être évolutif, tolérant aux pannes et
+   efficace, ce qui le rend adapté à une large gamme d'applications
+   qui nécessitent des calculs intensifs et distribués.
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+Benaibouche & Seddar               UGEGreed                      [Page 1]
+
+RFC 0001                                                        Mars 2023
+
+
+Table des Matières
+
+   1.  Introduction  . . . . . . . . . . . . . . . . . . . . . . . .   2
+   2.  Conventions utilisées . . . . . . . . . . . . . . . . . . . .   2
+     2.1.  Acronyms et Abbréviations   . . . . . . . . . . . . . . .   2
+     2.2.  Opérations et codes . . . . . . . . . . . . . . . . . . .   3
+   3.  Aperçu du protocole   . . . . . . . . . . . . . . . . . . . .   4
+   4.  Spécification du protocol . . . . . . . . . . . . . . . . . .   5
+   5.  Fonctionnement du UGEGreed  . . . . . . . . . . . . . . . . .   8
+     5.1.   L'application rejoint le réseau  . . . . . . . . . . . .   9
+     5.2.  Répartition de la charge de travail . . . . . . . . . . .  10
+     5.3.  Récupération des résultats  . . . . . . . . . . . . . . .  11
+     5.4.  L'application quitte le réseau  . . . . . . . . . . . . .  11
+     5.5.  Gérer la déconnexion d'une application  . . . . . . . . .  12
+   6. Exemple    . . . . . . . . . . . . . . . . . . . . . . . . . .  12
+   7. References   . . . . . . . . . . . . . . . . . . . . . . . . .  13
+
+1.  Introduction
+
+   Le système de calcule distribué propsé dans ce document est
+   essentiellement basé sur le protocol TCP, qui assure la fiabilité du
+   transfert des données.
+
+   Un des but de ce système est d'assurer un calcul plus rapide en
+   exploitant les ressources de plusieurs machines au lieu de surcharger
+   une seule machine, cela peut épuiser ses ressources et impliquera un
+   temps de traitement plus long.
+
+   L'idée principale est de former un réseau d'applications, qui communique
+   entre elles par le protocol TCP, et s'organiser pour que chaque application
+    effectue une partie du calcul, ensuite récupérer les sorties
+   et les combiner dans un résultat global.
+
+   Ce document décrit les fonctionnalités de ce système, ainsi que le
+   protocol de communication utilisé pour organiser les échanges entre
+   les applications.
+
+
+2.  Conventions utilisées dans ce document
+
+2.1.  Acronyms et Abréviations
+
+      TCP: Transmission Control Protocol
+
+      HTTP: Hypertext Transfer Protocol
+
+      URL: Uniform Resource Locator
+
+      WORKLOAD: Tache
+
+
+
+
+Benaibouche & Seddar               UGEGreed                      [Page 2]
+
+RFC 0001                                                        Mars 2023
+
+
+2.2.  Opérations et codes
+
+      Opération                                          Code
+
+      JOIN_REQUEST : Demande de joindre le réseau        0
+                     (envoyée une seule fois, unicast)
+
+      JOIN_REQUEST : Demande de joindre le réseau        1
+                     (envoyée en broadcast)
+
+      PEER_LIST : Liste des pairs                        2
+
+      WORKLOAD_REQUEST: Demande de tache                 3
+
+      WORKLOAD_RESULT: Résultat de tache                 4
+
+      LEAVE_REQUEST: Demande de quitter le réseau        5
+
+      WORKLOAD_ACK: Confirmation de l'acceptation        6
+                    de la tache
+      WORKLOAD_NACK: Confirmation de refus de la tache   7
+
+
+
+
+3.  Aperçu du protocole
+
+   L'architecture globale du UGEGreed est conçue pour permettre à
+   une application de partager une tâche de calcul et répartir la charge
+   de travail entre les différentes applications lancées dans différentes
+   machine. Un protocole de communication a été conçu pour organiser les
+   differents échanges.
+   Ce protocole est construit au-dessus de la pile TCP/IP et utilise les
+   sockets pour établir des connexions entre les applications.
+   Le protocole comprend plusieurs composants, notamment :
+
+      a. Application en mode ROOT : On dit qu'une application est
+      démarrée en mode ROOT, si elle est démarrée sans l'adresse d'une
+      autre application. Elle peut accepter les connexions entrantes
+      depuis d'autres applications.
+
+      b. Application en mode non-ROOT : On dit qu'une application est
+      démarrée en mode non-ROOT, si elle est démarrée avec l'adresse d'une
+      autre application, elle peut aussi accepter les connexions entrantes
+      depuis d'autres applications.
+
+      c. Tâche : une tâche est un problème de calcul qui doit être
+         résolu. Dans notre cas, on veut aider un chercheur à tester une
+         conjecture, donc il va coder sa fonction dans une classe
+         implémentant l'interface Checker.java qui est essentiellement
+         l'interface fonctionnelle String Function<Integer,String>,
+         cette fonction renvoie une chaine de caractéres donnant des
+         informations sur la validité de la conjecture.
+
+
+Benaibouche & Seddar               UGEGreed                      [Page 3]
+
+RFC 0001                                                        Mars 2023
+
+
+         Chaque application doit alors, à l'aide d'un URL fourni,
+         télécharger un archive JAR qui fait le calcule voulu par le
+         chercheur, puis exécuter le JAR en lui passant en argument un
+         intervalle de valeurs à tester, pour chaque valeur passée, on
+         récupére le résultat d'exécution de l'archive JAR, on le
+         sauvegarde dans un fichier, et à la fin on renvoie le fichier
+         contenant les résultats à l'application initiatrice du calcule.
+
+      d. Distribution de la charge de travail : le protocole est conçu
+         pour répartir la charge de travail entre les applications du
+         réseau. Lorsqu'une application reçoit une tâche, elle l'exécute
+         ou la refuse si elle est déjà occupée, ou bien elle a dèja fait
+         beaucoup de calcul.
+
+      e. Découverte d'autre application : le protocole comprend un
+         mécanisme de découverte des applications. Lorsqu'une
+         application rejoint le réseau, elle envoie une demande
+         d'adhésion à l'application auquelle elle est connectée, cette
+         derniére va l'ajouter à sa liste des membres de réseau, puis
+         elle passera cette informations à son application parente et
+         ses applications enfants (sauf la nouvelle).
+         Cette nouvelle application va recevoir une liste des membres
+         du réseau par l'application parente auquelle elle vient de se
+         connecter.
+
+      f. Gestion des tâches : Le protocole comprend des mécanismes de
+         gestion des tâches, tels que la demande et la réponse aux
+         tâches, pour permettre aux applications de partager des
+         informations sur l'état des tâches et la charge de travail des
+         applications individuelles.
+
+      g. Gestion des connexions : Chaque application sauvegarde les
+         informations de ses applications voisines, c'est à dire les
+         applications qui sont connectées à elle, et auquelle elle est
+         connectée directement.
+
+4. Spécification du protocol
+   Le protocole est un simple protocole réseau peer-to-peer qui permet
+   aux applications de se joindre, de quitter et d'échanger des charges
+   de travail entre eux. Le protocole a sept types de messages :
+   JOIN_REQUEST, WORKLOAD_REQUEST, WORKLOAD_ACK,WORKLOAD_NACK,
+   WORKLOAD_RESULT, PEER_LIST et LEAVE_REQUEST.
+
+   a. Message JOIN_REQUEST : Le message JOIN_REQUEST est utilisé par une
+      application pour demander à rejoindre le réseau. Le message
+      comprend les informations de l'application (Id, adresse et port).
+
+      a.1.  Champs de messages :
+            - Type : JOIN_REQUEST (int), égal à 0 quand il est envoyé
+                     par la nouvelle application, et égal à 1 quand il
+                     est envoyé en broadcast par l'application parente
+
+
+Benaibouche & Seddar               UGEGreed                      [Page 4]
+
+RFC 0001                                                        Mars 2023
+
+
+                     auquelle la nouvelle application vient de se
+                     connecter.
+            - Application : l'application demandante à rejoindre le réseau
+
+                        +------------------+
+                        | Type: JOIN (int) |
+                        +------------------+
+                        |    Application   |
+                        +------------------+
+
+                        Champ Application :
+
+                        +-----------------+
+                        | Adresse (string)|
+                        +-----------------+
+                        | Port  (int)     |
+                        +-----------------+
+
+      a.2.  Traitement des messages : Lorsqu'une application reçoit un
+            message JOIN_REQUEST, elle ajoute la nouvelle application à
+            sa liste de pairs et renvoie sa propre liste de pairs à la
+            nouvelle application dans un message PEER_LIST, et elle
+            passe le message JOIN_REQUEST à ses clients et aussi serveur
+            auquelle elle est connectée aprés avoir modifié le champ
+            Type à 1 (pour qu'elle ne reçoit pas le message PEER_LIST).
+
+            IMPORTANT : Chaque application qui reçoit un message
+            JOIN_REQUEST elle va ajouter une route vers la nouvelle
+            application dans sa table de routage, par exemple si
+            une application C se connecte à B. L'application B va
+            ajouter une route directe vers C dans sa table de routage,
+            cette table est représentée comme suit :
+
+            +-------------------+------------------------+
+            |     Application   |  Prochain Saut         |
+            +-------------------+------------------------+
+            |     Application C | Directement connectée  |
+            +-------------------+------------------------+
+
+            Si maintenant l'application B est dèja connectée à
+            l'application A, donc elle va lui transmettre le
+            JOIN_REQUEST de l'application C, A va donc associer la
+            route B à la nouvelle application C. La table de routage
+            de A va donc ressembler à ça :
+
+            +-------------------+------------------------+
+            |     Application   |  Prochain Saut         |
+            +-------------------+------------------------+
+            |     Application B | Directement connectée  |
+            +-------------------+------------------------+
+            |     Application C | Application B          |
+            +-------------------+------------------------+
+Benaibouche & Seddar               UGEGreed                      [Page 5]
+
+RFC 0001                                                        Mars 2023
+
+
+            Cela veut dire que pour atteindre l'application C, il faut
+            passer par l'application B.
+
+   b. Message PEER_LIST : Le message PEER_LIST est envoyé en réponse à
+      un message JOIN_REQUEST. Il est utilisé pour informer la nouvelle
+      application de la liste des pairs dans le réseau et aussi pour
+      confirmer la nouvelle connexion, dans ce cas, on a utiliser le
+      Piggbacking au lieu d'envoyer un aquitement explicite pour
+      confirmer la connexion.
+      Ce message est envoyé uniquement par l'application parente
+      auquelle la nouvelle application vient de se connecter.
+
+      b.1.  Champs de message :
+         - Type (int) : le type de message, défini sur PEER_LIST,
+           égal à 2.
+         - Pairs (List) : une liste de toutes les applications du réseau.
+
+      b.2.  Traitement des messages : Lorsqu'une application reçoit un
+            message PEER_LIST, elle ajoute les pairs à sa propre liste
+            de pairs pour les utiliser dans le traitement d'une tache.
+            L'application peut ensuite envoyer des messages
+            WORKLOAD_REQUEST à ces pairs.
+
+            +--------+--------+----------+----------------------+--------+--------+
+            | Type PEER_LIST(int)   |  Sender (iAdresse,Port)  | Num Peers (int) |
+            +--------+--------+----------+--------+--------+----------------------+
+            |   App 1 (i Adresse, Port )   |      ...                             |
+            +--------+--------+----------+--------+--------+----------------------+
+            |      ...       |    App n (id, Adresse, Port )                      |
+            +--------+--------+--------+----------+--------+--------+-------------+
+
+   c. Message WORKLOAD_REQUEST : Le message WORKLOAD_REQUEST est utilisé
+      par une application pour répartir une charge de travail sur le
+      réseau. Le message inclut la tache à faire, càd l'intervalle que
+      l'application doit traiter et l'URL de l'archive JAR qui contient
+      la classe qui calcule le résultat de conjecture.
+
+      c.1.  Champs de messages :
+            - Type : WORKLOAD_REQUEST (int), égal à 3.
+            - Application destinataire IP : l'adresse IP de l'application qui doit faire la tache.
+            - Application destinataire PORT : le port IP de l'application qui doit faire la tache.
+            - Application émettrice IP : l'adresse IP de l'application qui a envoyé la tache.
+            - Application émettrice PORT : l'adresse port de l'application qui a envoyé la tache.
+            - ID de tache: le ID de la tache a faire.
+            - valeur début: la valeur de debut des calcules.
+            - valeur fin: la valeur de la fin des calcules.
+            - Nom Qualifie: Le nom qualifie de la class contenue dans le fichier jar.
+            - URL de JAR: Le lien pour telecharger le jar.
+
+      c.2.  Traitement des messages : Lorsqu'un nœud reçoit un message
+            WORKLOAD_REQUEST, il vérifie s'il est occupé à traiter une
+            autre tache. S'il n'est pas occupé, il verifie s'il est le
+            destinataire, puis il définit son état sur occupé et exécute
+            la tâche.(sinon il route le message vers sa destination).
+
+
+
+
+
+Benaibouche & Seddar               UGEGreed                      [Page 6]
+
+RFC 0001                                                        Mars 2023
+
+
+                        +-----------------------------+
+                        | Type: WORKLOAD_REQUEST      |
+                        +-----------------------------+
+                        |   Application émettrice IP  |
+                        +-----------------------------+
+                        |  Application émettrice PORT |
+                        +-----------------------------+
+                        | Application destinataire IP |
+                        +-----------------------------+
+                        |Application destinataire PORT|
+                        +-----------------------------+
+                        |       ID de tache(int)      |
+                        +-----------------------------+
+                        |       valeur début (Long)   |
+                        +-----------------------------+
+                        |        valeur fin (Long)    |
+                        +-----------------------------+
+			               |       Nom Qualifie (string) |
+                        +-----------------------------+
+                        |      URL de JAR (string)    |
+                        +-----------------------------+
+
+
+
+         Dans le cas ou une application refuse la tache (occupée), elle
+         envoie un message WORKLOAD_NACK de valeur 7, sinon, en cas
+         d'acceptation de la tache, l'application envoie un message
+         WORKLOAD_ACK de valeur 6 à l'application qui lui a confié la
+         tache.
+                        +---------------------------+
+                        |Type:WORKLOAD_NACK/ACK(int)|
+                        +---------------------------+
+                        |     ID de la tache(int)   |
+                        +---------------------------+
+                        | Application destinataire  |
+                        +---------------------------+
+                        | Application émettrice     |
+                        +---------------------------+
+
+         Ces deux messages : WORKLOAD_NACK et WORKLOAD_ACK sont utilisés
+         pour informer l'application émettrice si la tache a été
+         acceptée ou non, pour qu'elle puisse la répartir sur une autre
+         application.
+
+   d. Message WORKLOAD_RESULT : Le message WORKLOAD_RESULT est utilisé
+      par une application pour renvoyer le résultat d'une tache à
+      l'expéditeur d'origine. Le message inclut l'identifiant de la
+      tache, son résultat et l'application émettrice de la tache.
+      d.1.  Champs de messages :
+            - Type (int) : le type de message, égal à 4.
+            - identifiant de la tache (int) : le numéro de la tâche
+              exécutée (pour la différencier des autres tâches, donné
+              par l'emitteur).
+            - Résultat (string) : le résultat de la tâche exécutée
+
+
+Benaibouche & Seddar         Système de calcule                 [Page 7]
+
+RFC 0001                   distribué basé sur TCP              Mars 2023
+
+
+            - Application émettrice : l'application qui a envoyé la
+            tache.
+
+      d.2.  Traitement des messages : Lorsqu'une application reçoit un
+            message WORKLOAD_RESULT, elle verifie s'elle est bien
+            l'expéditeur, puis elle extrait le résultat de la tâche qui
+            est un texte de plusieurs lignes, chaque ligne a la forme
+            suivante :
+                  <valeur testée (int)>:< résultat (string) >
+            Elle va ensuite ecrire le résultat dans un fichier de sortie
+            qui contient le résultat de toutes les taches exécutées par
+            les applications du réseau.
+            Si l'application qui a reçu ce message n'est pas
+            l'emitteur, elle le route vers l'application émettrice à
+            l'aide de sa table de routage.
+
+                        +------------------------+
+                        |Type:WORKLOAD_RESULT(int)  |
+                        +--------------------------+
+                        | Application émettrice IP |
+                        +------------------------+
+                        |        Résultat        |
+			               +------------------------+
+
+                        Résultat:
+                        +-------------------------+
+                        | ID Tache   (int)        |
+                        +-------------------------+
+                        |Resultat de tache(string)|
+                        +-------------------------+
+
+   e. Message LEAVE_REQUEST : Le message LEAVE_REQUEST est utilisé par
+      une application pour demander l'autorisation du parent pour deconecter.
+      Le message est envoye en unicast vers le parent.
+
+      e.1.  Champs de messages :
+            - Type : LEAVE_REQUEST (int), égal à 5.
+            - Application : l'application demandant à quitter le réseau.
+
+      e.2.  Traitement des messages : Lorsque le parent recoit un Leave_request
+      il reponse par un Leave_granted qui est une autorisation de deconnection
+      si il autorise la deconnection ( le cas normal ), et par un Leave_refused
+      dans le cas ou il refuse la deconnection ( le cas ou il est en train de
+      deconnection).
+
+                        +------------------------+
+                        |     Type: LEAVE (int)  |
+                        +------------------------+
+                        |       Application      |
+                        +------------------------+
+
+
+Benaibouche & Seddar         Système de calcule                 [Page 8]
+
+RFC 0001                   distribué basé sur TCP              Mars 2023
+
+
+                        Champ Application :
+                        +---------------------+
+                        |  IP Adresse (int)   |
+                        +---------------------+
+                        |      PORT (int)     |
+                        +---------------------+
+                        |Nombre des fils (int)|
+                        +---------------------+
+                        |     Adress Fils 0   |
+                        +---------------------+
+                        |      PORT Fils 0    |
+                        +---------------------+
+                        |     .......         |
+                        +---------------------+
+                        |   Adress Fils N-1   |
+                        +---------------------+
+                        |      PORT Fils N-1  |
+                        +---------------------+
+
+
+   f. Message LEAVE_GRANTED: ce message est une reponse au message LEAVE_REQUEST
+   c'est le cas ou le parent autorise la deconnection de son fils.
+      f.1. Champs de message:
+         Type: LEAVE_GRANTED
+      f.2. Traitement du message:
+         Quand le fils recois ce message donc il est autorise a continue la
+         procedure de deconnection selon le reste du protocol.
+                        +---------------------------+
+                        | Type: LEAVE_GRANTED (int) |
+                        +---------------------------+
+
+
+   g. Message LEAVE_REFUSED: Ce message est une reponse au LEAVE_REQUEST dans le
+   cas ou le parent n'autorise pas sont fils a se deconnecte. C'est le cas ou le
+   parent est en train de se deconnecter.
+      g.1. Champs de message:
+         Type: LEAVE_REFUSED
+      g.2 Traitement du message:
+         Quand le fils recois ce message il n'est pas autorise a se deconnecter
+         donc il reste connecte au reseaux.
+
+
+   h. Message PLEASE_RECONNECT: Ce message est envoye d'un parent qui est entrain
+   de ce deconnecter vers ces fils. Ce message est une demmande de reconnecter au parent.
+      h.1. Champs de message:
+         TYPE: Please reconnecte
+         Parent IP (int): L'adresse ip du parent pour reconnecter.
+         Parent Port (int): Le port du parent pour reconnecter.
+
+      g.2. Traitement du message:
+         Quand un fils recois ce message il essay de reconnecter au parent inclus dans
+         le message. Donc il envoie un reconnect request au parent inclus dans
+         le message.
+                        +---------------------------+
+                        |     Type: LEAVE (int)     |
+                        +---------------------------+
+                        |  Parent IP Adresse (int)  |
+                        +---------------------------+
+                        |      Prant PORT (int)     |
+                        +---------------------------+
+
+
+      h. Message RECONNECTION_REQUEST: Ce message est envoe par le fils vers
+      ( Le grand parent ) pour demander la reconnection.
+         h.1. Champs de message:
+            Type: RECONNECTION_REQUEST:
+            Joiner Ip: L'adress ip du neud qui est entrain de reconnecter.
+            Joiner PORT: Le port du neud qui est entrain de reconnecter.
+            Destination IP: L'adress ip de destination.
+            Destination PORT: Le port de destination.
+         h.2. Traitement du message:
+            Quand le parent recoit ce message il reponse par le message
+            RECONNECTION_ACCEPTED
+                        +----------------------------------+
+                        | Type: RECONNECTION_REQUEST (int) |
+                        +----------------------------------+
+                        |    Joiner IP Adresse (int)       |
+                        +----------------------------------+
+                        |         Joiner PORT (int)        |
+                        +----------------------------------+
+                        |        Destination IP @(int)     |
+                        +----------------------------------+
+                        |      Destination PORT (int)      |
+                        +----------------------------------+
+
+
+      i. Message RECONNECTION_ACCEPTED: Ce mesage est envoye par le (grand parent)
+      vers le ( grand fils ) pour declarer une acceptation de reconnection
+         i.1. Champs de message
+            Type: RECONNECTION_ACCEPTED
+            Joiner Ip: L'adress ip du neud qui est entrain de reconnecter.
+            Joiner PORT: Le port du neud qui est entrain de reconnecter.
+            Destination IP: L'adress ip de destination.
+            Destination PORT: Le port de destination.
+
+                        +----------------------------------+
+                        | Type: RECONNECTION_ACCEPTE (int) |
+                        +----------------------------------+
+                        |    Joiner IP Adresse (int)       |
+                        +----------------------------------+
+                        |         Joiner PORT (int)        |
+                        +----------------------------------+
+                        |        Destination IP @(int)     |
+                        +----------------------------------+
+                        |      Destination PORT (int)      |
+                        +----------------------------------+
+         i.2. Traitement du message:
+            Quand le grand fils recois se message il ouvre un socket TCP avec le
+            grand parent et envoie un message RECONNECTED_OK au parent pour le
+            notifier qu'il a reconnecter a son parent.
+
+
+      j. Message RECONNECTED_OK: Ce message est envoye par le fils a son parent pour
+      le notifier qu'il a reconnecter a son parent.
+         j.1. Champs de message
+            Type: RECONNECTED_OK
+            Parent IP: L'adresse ip du parent.
+            Parent Port: Le port du parent
+                        +----------------------------------+
+                        |       Type: RECONNECTED_OK (int) |
+                        +----------------------------------+
+                        |    Parent IP Adresse (int)       |
+                        +----------------------------------+
+                        |         Parent PORT (int)        |
+                        +----------------------------------+
+         j.2. Traitement du message:
+            Quand le parent recoit ce message il compte le nombre des fils qui ont
+            reconnecte au reseaux. Si le nombre des reconnections est egale au nombre
+            du fils. Le parent peux deconnecter du reseaux. Pour notifier le reste du reseau
+            de sont depart il envoie un message LEAVING_BROADCAST.
+
+
+      h. Message LEAVE_BROADCASR: Ce message est envoye par le noeud pour finaliser
+      le procesure de deconnection.
+         h.1. Champs de message
+            Type : LEAVE_BROADCASR.
+            sender ip: l'adresse IP du noeud qui a envoye se message.
+            sender port: le port du noeud qui a envoye se message.
+            leaver ip: l'adresse IP du noeud qui a deconnecte.
+            leaver port: le port IP du noeud qui a deconnecte.
+            parent ip: l'adresse IP du parent.
+            parent port: le port du parent.
+                        +----------------------------------+
+                        |   Type: LEAVE_BROADCAST    (int) |
+                        +----------------------------------+
+                        |    SENDER IP Adresse (int)       |
+                        +----------------------------------+
+                        |         SENDER PORT (int)        |
+                        +----------------------------------+
+                        |    Parent IP Adresse (int)       |
+                        +----------------------------------+
+                        |         Parent PORT (int)        |
+                        +----------------------------------+
+                        |    LEAVER IP Adresse (int)       |
+                        +----------------------------------+
+                        |         LEAVER PORT (int)        |
+                        +----------------------------------+
+         h.2. Traitement de message:
+            Ce message ce propage dans le reseaux au broadcast. Quand un noeud recoit ce
+            message il doit suprimer l'entrer du noeud qui a deconnecter de sa table de
+            routage, et modifier la table de routage des entrer qui ont le NEXT_HOP vert
+            le id du parent inclue dans le packet.
+
+
+   5.  Fonctionnement du UGEGreed
+
+      Les étapes suivantes décrivent le fonctionnement du UGEGreed :
+      5.1.  L'application rejoint le réseau : Lorsqu'une nouvelle
+            application est lancée, elle demande à l'utilisateur de
+            saisir l'adresse IP et le port de l'application qui va
+            l'acceuillir, puis elle va essayer à se connecter à cette
+            application, si elle réussit, elle envoie un message
+            JOIN_REQUEST à l'application d'accueil, sinon elle demande
+            à l'utilisateur de saisir une nouvelle adresse IP et un
+            nouveau port, jusqu'à ce qu'elle réussisse à se connecter
+            à l'une des applications du réseau. Lorsqu'elle réussit,
+            elle envoie un message JOIN_REQUEST à l'application qui lui
+            a accepter la connexion en mode unicast(champs type égale à
+            0).
+            L'application receptrice ajoute le nouvelle application à sa
+            liste de pairs et répond avec une liste de tous les autres
+            applications du réseau (y compris elle-même) sous forme d'un
+            message PEER_LIST.
+            La nouvelle application reçoit le message PEER_LIST et
+            ajoute toutes les nouvelles applications à sa propre liste
+            de pairs.
+            Le message JOIN_REQUEST va continuer à se propager dans le
+            réseau en mode broadcast (champs type égale à 1) jusqu'à ce
+            que toutes les applications le recoivent, et donc elles vont
+            ajouter la nouvelle application à leur liste de pairs.
+
+            IMPORTANT : Mode broadcast veut dire que le message reçu
+            est envoyé à toutes les applications auquelles l'application
+            qui a reçu le message est directement connectée, sauf
+            celle qui lui a envoyé le message.
+
+
+Benaibouche & Seddar         Système de calcule                 [Page 9]
+
+RFC 0001                   distribué basé sur TCP              Mars 2023
+
+
+      5.2.  Répartition de la charge de travail : Une application qui
+            souhaite distribuer un grand intervalle de valeurs à tester
+            elle envoie un message WORKLOAD_REQUEST à plusieurs pairs.
+            On sait que chaque application a une liste contenant les
+            applications du réseau, donc elle peut diviser l'intervalle
+            complet en plusieurs sous-intervalles :
+            - On suppose que N est le nombre d'applications du réseau.
+            - On suppose que l'intervalle complet est [0,M].
+            - On a implementer un valeur max pour le nombre des calcule
+            pour eviter le surcharge des neoud et pour implementer une
+            mechanisme de BATCHING pour distribue les tache. Donc le
+            nombre des taches pour chaque noeud T = min(MAX_WORK, M/N)
+            - On suppose que l'intervalle de chaque application est
+              Ii = [i*T,(i+1)*T], i=0,1,2,...,N-1.
+            - Chaque application va tester les valeurs dans son
+              intervalle Ii.
+            - Cette intervalle est envoyé dans le message
+            WORKLOAD_REQUEST à l'application réceptrice.
+            L'application qui distribue les taches crée une table
+            contenant les ID des taches et les applications qui les
+            ont acceptées. Une table serait preparer pour chaque BATCH
+            comme suit :
+            +-----------------+-----------------+-----------------+
+            | ID Tache (int)  |Application ID   |  Statut (int)   |
+            +-----------------+-----------------+-----------------+
+            |       1         |      null       |        0        |
+            +-----------------+-----------------+-----------------+
+            |       2         |        2        |        1        |
+            +-----------------+-----------------+-----------------+
+            |       3         |        3        |        0        |
+            +-----------------+-----------------+-----------------+
+
+            - Le champ statut est égal à 0 si la tache n'a pas été
+            faite et égal à 1 sinon.
+            - Si la tache n'a pas été acceptée par une application, le
+            champ application est égal à null.
+
+            Si l'application réceptrice n'est pas occupée, elle définit
+            son statut sur occupée et envoie un message WORKLOAD_ACK à
+            celle qui lui a envoyé la tache, y compris l'ID de la tache,
+            dans ce cas l'application émettrice ajoute l'ID de la tache
+            et l'application réceptrice à la table.
+            Si l'application réceptrice est occupée, elle renvoie un
+            message WORKLOAD_NACK à l'application émettrice.
+            Dans ce cas, l'application émettrice doit choisir une autre
+            application de la liste des pairs et lui envoyer le même
+            message WORKLOAD_REQUEST.
+
+      5.3.  Exécution de la charge de travail : Toutes les applications
+            qui reçoivent le message WORKLOAD_REQUEST et qui acceptent,
+            elles incrémentent le nombre de tache qu'elles ont effectué,
+            alors une application peut refuser la tache s'elle a dèja
+            accepter plusieurs.
+            Une fois qu'une application a terminé le calcul des
+            résultats pour l'intervalle qui lui a été donné, elle
+
+
+
+Benaibouche & Seddar         Système de calcule                 [Page 10]
+
+RFC 0001                   distribué basé sur TCP              Mars 2023
+
+
+            renvoie un message WORKLOAD_RESULT à l'application qui a
+            distribué la tache, y compris le résultat.
+
+      5.4.  Collecte des résultats : L'application qui a distribué la
+            charge de travail collecte tous les résultats de ses pairs
+            et les combine dans un résultat final qui est un fichier
+            texte.
+            Si une des tache n'as pas été faites, on la renvoie à une
+            autre application.
+
+      5.5.  L'application quitte le réseau : Une application qui veut
+            quitter le réseau envoie un message LEAVE_REQUEST à tous
+            ses pairs.
+            Chaque application réceptrice supprime les informations
+            de l'application sortante de sa liste de pairs et diffuse
+            le LEAVE_REQUEST à tous ses autres pairs. Toutes les
+            applications qui reçoivent ce message feront la même chose.
+
+      5.5.  Gérer la déconnexion d'une application : Une application peut
+            vouloir quitter le réseau, mais on veut pas perdre la
+            connexion avec les applications connectées à elle, donc ces
+            applications filles, Lorsqu'elles reçoivent un message
+            LEAVE_REQUEST depuis leur application parente, elles vont
+            tout simplement essayer de se connecter à une autre
+            application de la liste des pairs, avec la même procédure
+            que celle utilisée pour la connexion initiale pour que
+            les tables de routage soient mises à jour sur tout le
+            réseau.
+
+6. Exemple :
+
+   a. Une première application avec l'adresse A et le port Pa est lancée
+      en mode ROOT(sans lui donner l'adresse d'une autre application).
+      Cette application va créer une liste de pairs vide et va attendre
+      les connexions des autres applications.
+      Elle va aussi créer une table de routage et une table de voisins
+      directe vides.
+
+   b. Une deuxième application avec l'adresse B et le port Pb est
+      lancée en mode non-ROOT, on lui donne l'adresse de la première
+      application A et le port Pa.
+      Cette application va aussi créer une liste de pairs vide,
+      une table de routage contenant une seule entrée :
+            +-------------------+------------------------+
+            |     Application   |  Prochain Saut         |
+            +-------------------+------------------------+
+            |     Application A | Directement connectée  |
+            +-------------------+------------------------+
+      et une table de voisins directe contenant les informations de
+      l'application A.
+
+
+
+Benaibouche & Seddar         Système de calcule                [Page 11]
+
+RFC 0001                   distribué basé sur TCP              Mars 2023
+
+
+      Aprés l'établissement de la connexion avec A, elle va envoyer un
+      message JOIN_REQUEST à A.
+
+   c. L'application A reçoit le message JOIN_REQUEST de B, elle va
+      ajouter B à sa liste de pairs et lui envoyer un message PEER_LIST
+      contenant sa liste de pairs qui contient B seulement et lui même.
+      La table de routage de A va etre mise à jour comme suit :
+
+            +-------------------+------------------------+
+            |     Application   |  Prochain Saut         |
+            +-------------------+------------------------+
+            |     Application B | Directement connectée  |
+            +-------------------+------------------------+
+
+      IMPORTANT : L'envoie de message PEER_LIST à B est une sorte de
+      Piggbacking, càd au lieu d'envoyer une confirmation explicite de
+      la connexion on envoie le message PEER_LIST.
+
+   d. L'application B reçoit le message PEER_LIST de A, elle va ajouter
+      A à sa liste de pairs.
+
+   e. Une troisième application avec l'adresse C et le port Pc est
+      lancée en mode non-ROOT, on lui donne l'adresse de la première
+      application A et le port Pa.
+      Cette application va aussi créer une liste de pairs vide,
+      une table de routage contenant une seule entrée :
+            +-------------------+------------------------+
+            |     Application   |  Prochain Saut         |
+            +-------------------+------------------------+
+            |     Application A | Directement connectée  |
+            +-------------------+------------------------+
+      et une table de voisins directe contenant les informations de
+      l'application A.
+
+      Aprés l'établissement de la connexion avec A, elle va envoyer un
+      message JOIN_REQUEST à A.
+
+   f. L'application A reçoit le message JOIN_REQUEST de C, elle va
+      ajouter C à sa liste de pairs et lui envoyer un message PEER_LIST
+      contenant sa liste de pairs qui contient C et B et elle même.
+      La table de routage de A va etre mise à jour comme suit :
+            +-------------------+------------------------+
+            |     Application   |  Prochain Saut         |
+            +-------------------+------------------------+
+            |     Application C | Directement connectée  |
+            +-------------------+------------------------+
+            |     Application B | Directement connectée  |
+            +-------------------+------------------------+
+
+   g. L'application C reçoit le message PEER_LIST de A, elle va ajouter
+      A et B à sa liste de pairs.
+
+
+Benaibouche & Seddar         Système de calcule                [Page 12]
+
+RFC 0001                   distribué basé sur TCP              Mars 2023
+
+
+   h. L'application A va passer le message JOIN_REQUEST à B aprés
+      modification de champs Type en le mettant à 1, cela signifie que
+      le message est en broadcast et pour que B ne lui renvoie pas un
+      message PEER_LIST.
+
+   i. L'application B reçoit le message JOIN_REQUEST de A, elle va
+      ajouter C à sa liste de pairs et une nouvelle entrée dans sa
+      table de routage :
+            +-------------------+------------------------+
+            |     Application   |  Prochain Saut         |
+            +-------------------+------------------------+
+            |     Application C |      Application A     |
+            +-------------------+------------------------+
+            |     Application A | Directement connectée  |
+            +-------------------+------------------------+
+
+   La topologie de réseau est comme suit :
+
+      B:Pb -------------------> A:Pa <----------------- C:Pc
+
+   j. Une quatrième application avec l'adresse D et le port Pd est
+      lancée en mode non-ROOT, on lui donne l'adresse de la deuxième
+      application B et le port Pb.
+      Le même méchanisme que celui décrit précedemment est utilisé.
+
+      La topologie de réseau est comme suit :
+
+      B:Pb -------------------> A:Pa <----------------- C:Pc
+      ^
+      |
+      |
+      D:Pd
+
+   k. L'utilisateur de D va lui fournir un URL de l'archive JAR et un
+      un intervalle de valeurs à tester, D va envoyer un message
+      WORKLOAD_REQUEST à A, B et C.
+
+   l. Les applications A, B et C vont recevoir le message WORKLOAD_REQUEST
+      de D, elles modifieront leurs status à occupée, et vont envoyer un
+      message WORKLOAD_ACK à D.
+
+   m. L'application D va recevoir les messages WORKLOAD_ACK de A, B et C.
+      La table des taches de D va etre mise à jour comme suit :
+            +-----------------+-----------------+-----------------+
+            | ID Tache (int)  |Application(uuid)|  Statut (int)   |
+            +-----------------+-----------------+-----------------+
+            |       1         |        A        |        0        |
+            +-----------------+-----------------+-----------------+
+            |       2         |        B        |        0        |
+            +-----------------+-----------------+-----------------+
+            |       3         |        C        |        0        |
+            +-----------------+-----------------+-----------------+
+
+Benaibouche & Seddar         Système de calcule                [Page 13]
+
+RFC 0001                   distribué basé sur TCP              Mars 2023
+
+
+   n. Lorsque l'application A termine la tache, elle va envoyer un
+      message WORKLOAD_RESULT à D qui va ecrire le résultat dans un
+      fichier de sortie.
+      La table des taches de D va etre mise à jour comme suit :
+            +-----------------+-----------------+-----------------+
+            | ID Tache (int)  |Application      |  Statut (int)   |
+            +-----------------+-----------------+-----------------+
+            |       1         |        A        |        1        |
+            +-----------------+-----------------+-----------------+
+            |       2         |        B        |        0        |
+            +-----------------+-----------------+-----------------+
+            |       3         |        C        |        0        |
+            +-----------------+-----------------+-----------------+
+      Lorsque toutes les taches sont terminées, les status vont etre
+      mis à 1, et on aura le résultat final dans le fichier de sortie.
+
+   o. On suppose maintenant que l'application B veut quitter le réseau,
+      elle va envoyer un message LEAVE_REQUEST à ses voisins directe,
+      càd A et D.
+      A va réagir au message LEAVE_REQUEST de B en retirant B de sa
+      liste de pairs et supprimer la route vers lui.
+      D est un client de B, donc lorsqu'il reçoit le message
+      LEAVE_REQUEST, il va supprimer B de sa liste de pairs, puis
+      essayer de se connecter à une autre applications parmis ses pairs,
+      il peut choisir A ou C.
+
+      La topologie de réseau devient comme suit :
+
+      B:Pb ---x-----            A:Pa <----------------- C:Pc
+                                 ^
+                                 |
+                                 |
+                                 D:Pd
+
+7.  References
+
+   [Piggybacking in Computer Networks]   "Piggybacking in Computer
+      Networks", 2019,
+   <https://www.geeksforgeeks.org/piggybacking-in-computer-networks/>.
+
+   [HDLC]   "High-Level Data Link Control (HDLC)", 1984,
+      <https://en.wikipedia.org/wiki/High-Level_Data_Link_Control>.
+
+   [Routage statique]   Damien Soulages, "Fiche Résumé : Routage
+      statique" ,Septembre 2019,
+      <https://formip.com/fiche-resume-du-chapitre-les-routes-statiques>
+
+   [RFC2131 ]   R. Droms, "Dynamic Host Configuration Protocol",
+              MarS 1997, <https://www.rfc-editor.org/rfc/rfc2131.html>.
+
+
+
+
+Benaibouche & Seddar         Système de calcule                [Page 13]
+
+RFC 0001                   distribué basé sur TCP              Mars 2023

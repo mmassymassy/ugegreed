@@ -1,0 +1,9 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<project version="4">
+  <component name="ProjectModuleManager">
+    <modules>
+      <module fileurl="file://$PROJECT_DIR$/UGEGreed/UGEGreed.iml" filepath="$PROJECT_DIR$/UGEGreed/UGEGreed.iml" />
+      <module fileurl="file://$PROJECT_DIR$/.idea/UGEGreed_Projet_final.iml" filepath="$PROJECT_DIR$/.idea/UGEGreed_Projet_final.iml" />
+    </modules>
+  </component>
+</project>

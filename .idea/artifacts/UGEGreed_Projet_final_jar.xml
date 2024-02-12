@@ -1,0 +1,8 @@
+<component name="ArtifactManager">
+  <artifact type="jar" name="UGEGreed_Projet_final:jar">
+    <output-path>$PROJECT_DIR$/out/artifacts/UGEGreed_Projet_final_jar</output-path>
+    <root id="archive" name="UGEGreed_Projet_final.jar">
+      <element id="module-output" name="UGEGreed" />
+    </root>
+  </artifact>
+</component>

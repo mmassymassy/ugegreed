@@ -1,0 +1,400 @@
+{
+ "taskId" : 1,
+ "factors" : [1]
+}
+{
+ "taskId" : 2,
+ "factors" : [1, 2]
+}
+{
+ "taskId" : 3,
+ "factors" : [1, 3]
+}
+{
+ "taskId" : 4,
+ "factors" : [1, 2, 4]
+}
+{
+ "taskId" : 5,
+ "factors" : [1, 5]
+}
+{
+ "taskId" : 6,
+ "factors" : [1, 2, 3, 6]
+}
+{
+ "taskId" : 7,
+ "factors" : [1, 7]
+}
+{
+ "taskId" : 8,
+ "factors" : [1, 2, 4, 8]
+}
+{
+ "taskId" : 9,
+ "factors" : [1, 3, 9]
+}
+{
+ "taskId" : 10,
+ "factors" : [1, 2, 5, 10]
+}
+{
+ "taskId" : 11,
+ "factors" : [1, 11]
+}
+{
+ "taskId" : 12,
+ "factors" : [1, 2, 3, 4, 6, 12]
+}
+{
+ "taskId" : 13,
+ "factors" : [1, 13]
+}
+{
+ "taskId" : 14,
+ "factors" : [1, 2, 7, 14]
+}
+{
+ "taskId" : 15,
+ "factors" : [1, 3, 5, 15]
+}
+{
+ "taskId" : 16,
+ "factors" : [1, 2, 4, 8, 16]
+}
+{
+ "taskId" : 17,
+ "factors" : [1, 17]
+}
+{
+ "taskId" : 18,
+ "factors" : [1, 2, 3, 6, 9, 18]
+}
+{
+ "taskId" : 19,
+ "factors" : [1, 19]
+}
+{
+ "taskId" : 20,
+ "factors" : [1, 2, 4, 5, 10, 20]
+}
+{
+ "taskId" : 21,
+ "factors" : [1, 3, 7, 21]
+}
+{
+ "taskId" : 22,
+ "factors" : [1, 2, 11, 22]
+}
+{
+ "taskId" : 23,
+ "factors" : [1, 23]
+}
+{
+ "taskId" : 24,
+ "factors" : [1, 2, 3, 4, 6, 8, 12, 24]
+}
+{
+ "taskId" : 25,
+ "factors" : [1, 5, 25]
+}
+{
+ "taskId" : 26,
+ "factors" : [1, 2, 13, 26]
+}
+{
+ "taskId" : 27,
+ "factors" : [1, 3, 9, 27]
+}
+{
+ "taskId" : 28,
+ "factors" : [1, 2, 4, 7, 14, 28]
+}
+{
+ "taskId" : 29,
+ "factors" : [1, 29]
+}
+{
+ "taskId" : 30,
+ "factors" : [1, 2, 3, 5, 6, 10, 15, 30]
+}
+{
+ "taskId" : 31,
+ "factors" : [1, 31]
+}
+{
+ "taskId" : 32,
+ "factors" : [1, 2, 4, 8, 16, 32]
+}
+{
+ "taskId" : 33,
+ "factors" : [1, 3, 11, 33]
+}
+{
+ "taskId" : 34,
+ "factors" : [1, 2, 17, 34]
+}
+{
+ "taskId" : 35,
+ "factors" : [1, 5, 7, 35]
+}
+{
+ "taskId" : 36,
+ "factors" : [1, 2, 3, 4, 6, 9, 12, 18, 36]
+}
+{
+ "taskId" : 37,
+ "factors" : [1, 37]
+}
+{
+ "taskId" : 38,
+ "factors" : [1, 2, 19, 38]
+}
+{
+ "taskId" : 39,
+ "factors" : [1, 3, 13, 39]
+}
+{
+ "taskId" : 40,
+ "factors" : [1, 2, 4, 5, 8, 10, 20, 40]
+}
+{
+ "taskId" : 41,
+ "factors" : [1, 41]
+}
+{
+ "taskId" : 42,
+ "factors" : [1, 2, 3, 6, 7, 14, 21, 42]
+}
+{
+ "taskId" : 43,
+ "factors" : [1, 43]
+}
+{
+ "taskId" : 44,
+ "factors" : [1, 2, 4, 11, 22, 44]
+}
+{
+ "taskId" : 45,
+ "factors" : [1, 3, 5, 9, 15, 45]
+}
+{
+ "taskId" : 46,
+ "factors" : [1, 2, 23, 46]
+}
+{
+ "taskId" : 47,
+ "factors" : [1, 47]
+}
+{
+ "taskId" : 48,
+ "factors" : [1, 2, 3, 4, 6, 8, 12, 16, 24, 48]
+}
+{
+ "taskId" : 49,
+ "factors" : [1, 7, 49]
+}
+{
+ "taskId" : 50,
+ "factors" : [1, 2, 5, 10, 25, 50]
+}
+{
+ "taskId" : 51,
+ "factors" : [1, 3, 17, 51]
+}
+{
+ "taskId" : 52,
+ "factors" : [1, 2, 4, 13, 26, 52]
+}
+{
+ "taskId" : 53,
+ "factors" : [1, 53]
+}
+{
+ "taskId" : 54,
+ "factors" : [1, 2, 3, 6, 9, 18, 27, 54]
+}
+{
+ "taskId" : 55,
+ "factors" : [1, 5, 11, 55]
+}
+{
+ "taskId" : 56,
+ "factors" : [1, 2, 4, 7, 8, 14, 28, 56]
+}
+{
+ "taskId" : 57,
+ "factors" : [1, 3, 19, 57]
+}
+{
+ "taskId" : 58,
+ "factors" : [1, 2, 29, 58]
+}
+{
+ "taskId" : 59,
+ "factors" : [1, 59]
+}
+{
+ "taskId" : 60,
+ "factors" : [1, 2, 3, 4, 5, 6, 10, 12, 15, 20, 30, 60]
+}
+{
+ "taskId" : 61,
+ "factors" : [1, 61]
+}
+{
+ "taskId" : 62,
+ "factors" : [1, 2, 31, 62]
+}
+{
+ "taskId" : 63,
+ "factors" : [1, 3, 7, 9, 21, 63]
+}
+{
+ "taskId" : 64,
+ "factors" : [1, 2, 4, 8, 16, 32, 64]
+}
+{
+ "taskId" : 65,
+ "factors" : [1, 5, 13, 65]
+}
+{
+ "taskId" : 66,
+ "factors" : [1, 2, 3, 6, 11, 22, 33, 66]
+}
+{
+ "taskId" : 67,
+ "factors" : [1, 67]
+}
+{
+ "taskId" : 68,
+ "factors" : [1, 2, 4, 17, 34, 68]
+}
+{
+ "taskId" : 69,
+ "factors" : [1, 3, 23, 69]
+}
+{
+ "taskId" : 70,
+ "factors" : [1, 2, 5, 7, 10, 14, 35, 70]
+}
+{
+ "taskId" : 71,
+ "factors" : [1, 71]
+}
+{
+ "taskId" : 72,
+ "factors" : [1, 2, 3, 4, 6, 8, 9, 12, 18, 24, 36, 72]
+}
+{
+ "taskId" : 73,
+ "factors" : [1, 73]
+}
+{
+ "taskId" : 74,
+ "factors" : [1, 2, 37, 74]
+}
+{
+ "taskId" : 75,
+ "factors" : [1, 3, 5, 15, 25, 75]
+}
+{
+ "taskId" : 76,
+ "factors" : [1, 2, 4, 19, 38, 76]
+}
+{
+ "taskId" : 77,
+ "factors" : [1, 7, 11, 77]
+}
+{
+ "taskId" : 78,
+ "factors" : [1, 2, 3, 6, 13, 26, 39, 78]
+}
+{
+ "taskId" : 79,
+ "factors" : [1, 79]
+}
+{
+ "taskId" : 80,
+ "factors" : [1, 2, 4, 5, 8, 10, 16, 20, 40, 80]
+}
+{
+ "taskId" : 81,
+ "factors" : [1, 3, 9, 27, 81]
+}
+{
+ "taskId" : 82,
+ "factors" : [1, 2, 41, 82]
+}
+{
+ "taskId" : 83,
+ "factors" : [1, 83]
+}
+{
+ "taskId" : 84,
+ "factors" : [1, 2, 3, 4, 6, 7, 12, 14, 21, 28, 42, 84]
+}
+{
+ "taskId" : 85,
+ "factors" : [1, 5, 17, 85]
+}
+{
+ "taskId" : 86,
+ "factors" : [1, 2, 43, 86]
+}
+{
+ "taskId" : 87,
+ "factors" : [1, 3, 29, 87]
+}
+{
+ "taskId" : 88,
+ "factors" : [1, 2, 4, 8, 11, 22, 44, 88]
+}
+{
+ "taskId" : 89,
+ "factors" : [1, 89]
+}
+{
+ "taskId" : 90,
+ "factors" : [1, 2, 3, 5, 6, 9, 10, 15, 18, 30, 45, 90]
+}
+{
+ "taskId" : 91,
+ "factors" : [1, 7, 13, 91]
+}
+{
+ "taskId" : 92,
+ "factors" : [1, 2, 4, 23, 46, 92]
+}
+{
+ "taskId" : 93,
+ "factors" : [1, 3, 31, 93]
+}
+{
+ "taskId" : 94,
+ "factors" : [1, 2, 47, 94]
+}
+{
+ "taskId" : 95,
+ "factors" : [1, 5, 19, 95]
+}
+{
+ "taskId" : 96,
+ "factors" : [1, 2, 3, 4, 6, 8, 12, 16, 24, 32, 48, 96]
+}
+{
+ "taskId" : 97,
+ "factors" : [1, 97]
+}
+{
+ "taskId" : 98,
+ "factors" : [1, 2, 7, 14, 49, 98]
+}
+{
+ "taskId" : 99,
+ "factors" : [1, 3, 9, 11, 33, 99]
+}
+{
+ "taskId" : 100,
+ "factors" : [1, 2, 4, 5, 10, 20, 25, 50, 100]
+}

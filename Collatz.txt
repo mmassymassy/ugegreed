@@ -1,0 +1,800 @@
+{
+ "taskId" : 1,
+ "steps" : 0
+}
+{
+ "taskId" : 2,
+ "steps" : 1
+}
+{
+ "taskId" : 3,
+ "steps" : 7
+}
+{
+ "taskId" : 4,
+ "steps" : 2
+}
+{
+ "taskId" : 5,
+ "steps" : 5
+}
+{
+ "taskId" : 6,
+ "steps" : 8
+}
+{
+ "taskId" : 7,
+ "steps" : 16
+}
+{
+ "taskId" : 8,
+ "steps" : 3
+}
+{
+ "taskId" : 9,
+ "steps" : 19
+}
+{
+ "taskId" : 10,
+ "steps" : 6
+}
+{
+ "taskId" : 11,
+ "steps" : 14
+}
+{
+ "taskId" : 12,
+ "steps" : 9
+}
+{
+ "taskId" : 13,
+ "steps" : 9
+}
+{
+ "taskId" : 14,
+ "steps" : 17
+}
+{
+ "taskId" : 15,
+ "steps" : 17
+}
+{
+ "taskId" : 16,
+ "steps" : 4
+}
+{
+ "taskId" : 17,
+ "steps" : 12
+}
+{
+ "taskId" : 18,
+ "steps" : 20
+}
+{
+ "taskId" : 19,
+ "steps" : 20
+}
+{
+ "taskId" : 20,
+ "steps" : 7
+}
+{
+ "taskId" : 21,
+ "steps" : 7
+}
+{
+ "taskId" : 22,
+ "steps" : 15
+}
+{
+ "taskId" : 23,
+ "steps" : 15
+}
+{
+ "taskId" : 24,
+ "steps" : 10
+}
+{
+ "taskId" : 25,
+ "steps" : 23
+}
+{
+ "taskId" : 26,
+ "steps" : 10
+}
+{
+ "taskId" : 27,
+ "steps" : 111
+}
+{
+ "taskId" : 28,
+ "steps" : 18
+}
+{
+ "taskId" : 29,
+ "steps" : 18
+}
+{
+ "taskId" : 30,
+ "steps" : 18
+}
+{
+ "taskId" : 31,
+ "steps" : 106
+}
+{
+ "taskId" : 32,
+ "steps" : 5
+}
+{
+ "taskId" : 33,
+ "steps" : 26
+}
+{
+ "taskId" : 34,
+ "steps" : 13
+}
+{
+ "taskId" : 35,
+ "steps" : 13
+}
+{
+ "taskId" : 36,
+ "steps" : 21
+}
+{
+ "taskId" : 37,
+ "steps" : 21
+}
+{
+ "taskId" : 38,
+ "steps" : 21
+}
+{
+ "taskId" : 39,
+ "steps" : 34
+}
+{
+ "taskId" : 40,
+ "steps" : 8
+}
+{
+ "taskId" : 41,
+ "steps" : 109
+}
+{
+ "taskId" : 42,
+ "steps" : 8
+}
+{
+ "taskId" : 43,
+ "steps" : 29
+}
+{
+ "taskId" : 44,
+ "steps" : 16
+}
+{
+ "taskId" : 45,
+ "steps" : 16
+}
+{
+ "taskId" : 46,
+ "steps" : 16
+}
+{
+ "taskId" : 47,
+ "steps" : 104
+}
+{
+ "taskId" : 48,
+ "steps" : 11
+}
+{
+ "taskId" : 49,
+ "steps" : 24
+}
+{
+ "taskId" : 50,
+ "steps" : 24
+}
+{
+ "taskId" : 51,
+ "steps" : 24
+}
+{
+ "taskId" : 52,
+ "steps" : 11
+}
+{
+ "taskId" : 53,
+ "steps" : 11
+}
+{
+ "taskId" : 54,
+ "steps" : 112
+}
+{
+ "taskId" : 55,
+ "steps" : 112
+}
+{
+ "taskId" : 56,
+ "steps" : 19
+}
+{
+ "taskId" : 57,
+ "steps" : 32
+}
+{
+ "taskId" : 58,
+ "steps" : 19
+}
+{
+ "taskId" : 59,
+ "steps" : 32
+}
+{
+ "taskId" : 60,
+ "steps" : 19
+}
+{
+ "taskId" : 61,
+ "steps" : 19
+}
+{
+ "taskId" : 62,
+ "steps" : 107
+}
+{
+ "taskId" : 63,
+ "steps" : 107
+}
+{
+ "taskId" : 64,
+ "steps" : 6
+}
+{
+ "taskId" : 65,
+ "steps" : 27
+}
+{
+ "taskId" : 66,
+ "steps" : 27
+}
+{
+ "taskId" : 67,
+ "steps" : 27
+}
+{
+ "taskId" : 68,
+ "steps" : 14
+}
+{
+ "taskId" : 69,
+ "steps" : 14
+}
+{
+ "taskId" : 70,
+ "steps" : 14
+}
+{
+ "taskId" : 71,
+ "steps" : 102
+}
+{
+ "taskId" : 72,
+ "steps" : 22
+}
+{
+ "taskId" : 73,
+ "steps" : 115
+}
+{
+ "taskId" : 74,
+ "steps" : 22
+}
+{
+ "taskId" : 75,
+ "steps" : 14
+}
+{
+ "taskId" : 76,
+ "steps" : 22
+}
+{
+ "taskId" : 77,
+ "steps" : 22
+}
+{
+ "taskId" : 78,
+ "steps" : 35
+}
+{
+ "taskId" : 79,
+ "steps" : 35
+}
+{
+ "taskId" : 80,
+ "steps" : 9
+}
+{
+ "taskId" : 81,
+ "steps" : 22
+}
+{
+ "taskId" : 82,
+ "steps" : 110
+}
+{
+ "taskId" : 83,
+ "steps" : 110
+}
+{
+ "taskId" : 84,
+ "steps" : 9
+}
+{
+ "taskId" : 85,
+ "steps" : 9
+}
+{
+ "taskId" : 86,
+ "steps" : 30
+}
+{
+ "taskId" : 87,
+ "steps" : 30
+}
+{
+ "taskId" : 88,
+ "steps" : 17
+}
+{
+ "taskId" : 89,
+ "steps" : 30
+}
+{
+ "taskId" : 90,
+ "steps" : 17
+}
+{
+ "taskId" : 91,
+ "steps" : 92
+}
+{
+ "taskId" : 92,
+ "steps" : 17
+}
+{
+ "taskId" : 93,
+ "steps" : 17
+}
+{
+ "taskId" : 94,
+ "steps" : 105
+}
+{
+ "taskId" : 95,
+ "steps" : 105
+}
+{
+ "taskId" : 96,
+ "steps" : 12
+}
+{
+ "taskId" : 97,
+ "steps" : 118
+}
+{
+ "taskId" : 98,
+ "steps" : 25
+}
+{
+ "taskId" : 99,
+ "steps" : 25
+}
+{
+ "taskId" : 100,
+ "steps" : 25
+}
+{
+ "taskId" : 101,
+ "steps" : 25
+}
+{
+ "taskId" : 102,
+ "steps" : 25
+}
+{
+ "taskId" : 103,
+ "steps" : 87
+}
+{
+ "taskId" : 104,
+ "steps" : 12
+}
+{
+ "taskId" : 105,
+ "steps" : 38
+}
+{
+ "taskId" : 106,
+ "steps" : 12
+}
+{
+ "taskId" : 107,
+ "steps" : 100
+}
+{
+ "taskId" : 108,
+ "steps" : 113
+}
+{
+ "taskId" : 109,
+ "steps" : 113
+}
+{
+ "taskId" : 110,
+ "steps" : 113
+}
+{
+ "taskId" : 111,
+ "steps" : 69
+}
+{
+ "taskId" : 112,
+ "steps" : 20
+}
+{
+ "taskId" : 113,
+ "steps" : 12
+}
+{
+ "taskId" : 114,
+ "steps" : 33
+}
+{
+ "taskId" : 115,
+ "steps" : 33
+}
+{
+ "taskId" : 116,
+ "steps" : 20
+}
+{
+ "taskId" : 117,
+ "steps" : 20
+}
+{
+ "taskId" : 118,
+ "steps" : 33
+}
+{
+ "taskId" : 119,
+ "steps" : 33
+}
+{
+ "taskId" : 120,
+ "steps" : 20
+}
+{
+ "taskId" : 121,
+ "steps" : 95
+}
+{
+ "taskId" : 122,
+ "steps" : 20
+}
+{
+ "taskId" : 123,
+ "steps" : 46
+}
+{
+ "taskId" : 124,
+ "steps" : 108
+}
+{
+ "taskId" : 125,
+ "steps" : 108
+}
+{
+ "taskId" : 126,
+ "steps" : 108
+}
+{
+ "taskId" : 127,
+ "steps" : 46
+}
+{
+ "taskId" : 128,
+ "steps" : 7
+}
+{
+ "taskId" : 129,
+ "steps" : 121
+}
+{
+ "taskId" : 130,
+ "steps" : 28
+}
+{
+ "taskId" : 131,
+ "steps" : 28
+}
+{
+ "taskId" : 132,
+ "steps" : 28
+}
+{
+ "taskId" : 133,
+ "steps" : 28
+}
+{
+ "taskId" : 134,
+ "steps" : 28
+}
+{
+ "taskId" : 135,
+ "steps" : 41
+}
+{
+ "taskId" : 136,
+ "steps" : 15
+}
+{
+ "taskId" : 137,
+ "steps" : 90
+}
+{
+ "taskId" : 138,
+ "steps" : 15
+}
+{
+ "taskId" : 139,
+ "steps" : 41
+}
+{
+ "taskId" : 140,
+ "steps" : 15
+}
+{
+ "taskId" : 141,
+ "steps" : 15
+}
+{
+ "taskId" : 142,
+ "steps" : 103
+}
+{
+ "taskId" : 143,
+ "steps" : 103
+}
+{
+ "taskId" : 144,
+ "steps" : 23
+}
+{
+ "taskId" : 145,
+ "steps" : 116
+}
+{
+ "taskId" : 146,
+ "steps" : 116
+}
+{
+ "taskId" : 147,
+ "steps" : 116
+}
+{
+ "taskId" : 148,
+ "steps" : 23
+}
+{
+ "taskId" : 149,
+ "steps" : 23
+}
+{
+ "taskId" : 150,
+ "steps" : 15
+}
+{
+ "taskId" : 151,
+ "steps" : 15
+}
+{
+ "taskId" : 152,
+ "steps" : 23
+}
+{
+ "taskId" : 153,
+ "steps" : 36
+}
+{
+ "taskId" : 154,
+ "steps" : 23
+}
+{
+ "taskId" : 155,
+ "steps" : 85
+}
+{
+ "taskId" : 156,
+ "steps" : 36
+}
+{
+ "taskId" : 157,
+ "steps" : 36
+}
+{
+ "taskId" : 158,
+ "steps" : 36
+}
+{
+ "taskId" : 159,
+ "steps" : 54
+}
+{
+ "taskId" : 160,
+ "steps" : 10
+}
+{
+ "taskId" : 161,
+ "steps" : 98
+}
+{
+ "taskId" : 162,
+ "steps" : 23
+}
+{
+ "taskId" : 163,
+ "steps" : 23
+}
+{
+ "taskId" : 164,
+ "steps" : 111
+}
+{
+ "taskId" : 165,
+ "steps" : 111
+}
+{
+ "taskId" : 166,
+ "steps" : 111
+}
+{
+ "taskId" : 167,
+ "steps" : 67
+}
+{
+ "taskId" : 168,
+ "steps" : 10
+}
+{
+ "taskId" : 169,
+ "steps" : 49
+}
+{
+ "taskId" : 170,
+ "steps" : 10
+}
+{
+ "taskId" : 171,
+ "steps" : 124
+}
+{
+ "taskId" : 172,
+ "steps" : 31
+}
+{
+ "taskId" : 173,
+ "steps" : 31
+}
+{
+ "taskId" : 174,
+ "steps" : 31
+}
+{
+ "taskId" : 175,
+ "steps" : 80
+}
+{
+ "taskId" : 176,
+ "steps" : 18
+}
+{
+ "taskId" : 177,
+ "steps" : 31
+}
+{
+ "taskId" : 178,
+ "steps" : 31
+}
+{
+ "taskId" : 179,
+ "steps" : 31
+}
+{
+ "taskId" : 180,
+ "steps" : 18
+}
+{
+ "taskId" : 181,
+ "steps" : 18
+}
+{
+ "taskId" : 182,
+ "steps" : 93
+}
+{
+ "taskId" : 183,
+ "steps" : 93
+}
+{
+ "taskId" : 184,
+ "steps" : 18
+}
+{
+ "taskId" : 185,
+ "steps" : 44
+}
+{
+ "taskId" : 186,
+ "steps" : 18
+}
+{
+ "taskId" : 187,
+ "steps" : 44
+}
+{
+ "taskId" : 188,
+ "steps" : 106
+}
+{
+ "taskId" : 189,
+ "steps" : 106
+}
+{
+ "taskId" : 190,
+ "steps" : 106
+}
+{
+ "taskId" : 191,
+ "steps" : 44
+}
+{
+ "taskId" : 192,
+ "steps" : 13
+}
+{
+ "taskId" : 193,
+ "steps" : 119
+}
+{
+ "taskId" : 194,
+ "steps" : 119
+}
+{
+ "taskId" : 195,
+ "steps" : 119
+}
+{
+ "taskId" : 196,
+ "steps" : 26
+}
+{
+ "taskId" : 197,
+ "steps" : 26
+}
+{
+ "taskId" : 198,
+ "steps" : 26
+}
+{
+ "taskId" : 199,
+ "steps" : 119
+}
+{
+ "taskId" : 200,
+ "steps" : 26
+}
